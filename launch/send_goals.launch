@@ -1,0 +1,39 @@
+<launch>  
+  <param name="goal_x" value="2" />
+  <param name="goal_y" value="-2" />
+  <param name="goal_theta" value="180" />
+  <param name="/use_sim_time" value="true"/>
+  
+  <!-- Arguments -->
+  <arg name="model" default="burger" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="open_rviz" default="true"/>
+
+  <!-- Turtlebot3 -->
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <!--  Launch turtle bot world  -->
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_empty_world.launch"/>
+
+  <!-- Launch navigation stack with amcl -->
+  <include file="$(find ros_project)/launch/amcl_demo.launch"/>
+
+  <!-- Launch rviz -->
+  <!--<include file="$(find turtlebot_rviz_launchers)/launch/view_navigation.launch"/>
+
+  <include file="$(find ros_project)/launch/rviz_test.launch">
+    <arg name="model" value="$(arg model)"/>
+  </include>-->
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+  <group if="$(arg open_rviz)"> 
+    <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+  </group>
+
+  <!-- Launch send goals node -->
+  <node name="sendGoals_node" pkg="send_goals" type="sendGoals_node" output="screen"/>
+</launch>
+ 
+
