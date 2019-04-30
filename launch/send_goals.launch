@@ -1,6 +1,6 @@
 <launch>  
-  <param name="goal_x" value="2" />
-  <param name="goal_y" value="-2" />
+  <param name="goal_x" value="-0.54213" />
+  <param name="goal_y" value="0.950948" />
   <param name="goal_theta" value="180" />
   <param name="/use_sim_time" value="true"/>
   
@@ -33,7 +33,7 @@
   </group>
 
   <!-- Launch send goals node -->
-  <node name="sendGoals_node" pkg="send_goals" type="sendGoals_node" output="screen"/>
+  <node name="sendGoals_node" pkg="ros_project" type="sendGoals_node" output="screen"/>
 </launch>
  
 
