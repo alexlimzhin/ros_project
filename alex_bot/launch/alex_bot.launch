@@ -1,0 +1,8 @@
+<launch>
+
+
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+	
+	<node name="action_controller" pkg="alex_bot" type="action_controller_node" output="screen" />
+
+</launch>
